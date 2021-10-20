@@ -1,0 +1,196 @@
+ondrej@Ondrejs-MacBook-Pro ~ % telnet 147.32.233.18 8888
+Trying 147.32.233.18...
+Connected to 147.32.233.18.
+Escape character is '^]'.
+GET /NI-AM1-ApplicationProtocols/httpTelnet1 HTTP/1.1
+Host: 147.32.233.18
+User-Agent: fit-telnet
+Accept: text/html
+Accept-Language: en-US
+Accept-Charset: UTF-8
+
+
+HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+Content-Type: text/html;charset=UTF-8
+Content-Length: 3
+Date: Fri, 24 Sep 2021 14:41:13 GMT
+
+OK
+Connection closed by foreign host.
+ondrej@Ondrejs-MacBook-Pro ~ % telnet 147.32.233.18 8888
+Trying 147.32.233.18...
+Connected to 147.32.233.18.
+Escape character is '^]'.
+POST /NI-AM1-ApplicationProtocols/httpTelnet2 HTTP/1.1
+Host: 147.32.233.18
+Referer: mi-mdw
+Content-Type: application/x-www-form-urlencoded;  charset=UTF-8
+Content-Length: 8
+
+data=fit
+HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+Content-Type: text/html;charset=UTF-8
+Content-Length: 3
+Date: Fri, 24 Sep 2021 15:18:20 GMT
+
+OK
+Connection closed by foreign host.
+
+ondrej@Ondrejs-MacBook-Pro ~ % curl http://147.32.233.18:8888/NI-AM1-ApplicationProtocols/protocol/welcome
+OK
+Your next page is /protocol/get
+send GET parameter "name" with value "publicly" 
+set Header "Accept" to "text/plain" 
+
+ondrej@Ondrejs-MacBook-Pro ~ % curl --header "Accept: text/plain" -v "http://147.32.233.18:8888/NI-AM1-ApplicationProtocols/protocol/get?name=publicly"
+*   Trying 147.32.233.18...
+* TCP_NODELAY set
+* Connected to 147.32.233.18 (147.32.233.18) port 8888 (#0)
+> GET /NI-AM1-ApplicationProtocols/protocol/get?name=publicly HTTP/1.1
+> Host: 147.32.233.18:8888
+> User-Agent: curl/7.64.1
+> Accept: text/plain
+> 
+< HTTP/1.1 200 OK
+< Server: Apache-Coyote/1.1
+< Content-Type: text/plain;charset=UTF-8
+< Content-Length: 172
+< Date: Fri, 24 Sep 2021 15:31:35 GMT
+< 
+OK
+Your next page is /protocol/post 
+send POST parameter "name" with value "consumer"
+and set Header "Accept" is "text/plain" 
+and set Header "Accept-Language" is "en-US" 
+* Connection #0 to host 147.32.233.18 left intact
+* Closing connection 0
+
+ondrej@Ondrejs-MacBook-Pro ~ % curl --data "" --header "Accept: text/plain" --header "Accept-Language: en-US" -v "http://147.32.233.18:8888/NI-AM1-ApplicationProtocols/protocol/post?name=consumer" 
+*   Trying 147.32.233.18...
+* TCP_NODELAY set
+* Connected to 147.32.233.18 (147.32.233.18) port 8888 (#0)
+> POST /NI-AM1-ApplicationProtocols/protocol/post?name=consumer HTTP/1.1
+> Host: 147.32.233.18:8888
+> User-Agent: curl/7.64.1
+> Accept: text/plain
+> Accept-Language: en-US
+> Content-Length: 0
+> Content-Type: application/x-www-form-urlencoded
+> 
+< HTTP/1.1 200 OK
+< Server: Apache-Coyote/1.1
+< Content-Type: text/plain;charset=UTF-8
+< Content-Length: 115
+< Date: Fri, 24 Sep 2021 15:34:17 GMT
+< 
+OK
+Your next page is /protocol/referer 
+change referer to value "discriminate"
+set Header "Accept" is "text/html" 
+* Connection #0 to host 147.32.233.18 left intact
+* Closing connection 0
+
+ondrej@Ondrejs-MacBook-Pro ~ % curl --data "" --header "Accept: text/html" --header "Accept-Language: en-US" --header "Referer: discriminate" -v "http://147.32.233.18:8888/NI-AM1-ApplicationProtocols/protocol/referer"
+*   Trying 147.32.233.18...
+* TCP_NODELAY set
+* Connected to 147.32.233.18 (147.32.233.18) port 8888 (#0)
+> POST /NI-AM1-ApplicationProtocols/protocol/referer HTTP/1.1
+> Host: 147.32.233.18:8888
+> User-Agent: curl/7.64.1
+> Accept: text/html
+> Accept-Language: en-US
+> Referer: discriminate
+> Content-Length: 0
+> Content-Type: application/x-www-form-urlencoded
+> 
+< HTTP/1.1 200 OK
+< Server: Apache-Coyote/1.1
+< Content-Type: text/plain;charset=UTF-8
+< Content-Length: 127
+< Date: Fri, 24 Sep 2021 15:43:39 GMT
+< 
+OK
+Your next page is /protocol/useragent
+and change User-Agent to value "resumed"
+and set Header "Accept-Language" is "en-US" 
+* Connection #0 to host 147.32.233.18 left intact
+* Closing connection 0
+
+ondrej@Ondrejs-MacBook-Pro ~ % curl --data "" --header "Accept: text/html" --header "Accept-Language: en-US" --header "User-Agent: resumed" -v "http://147.32.233.18:8888/NI-AM1-ApplicationProtocols/protocol/useragent"
+*   Trying 147.32.233.18...
+* TCP_NODELAY set
+* Connected to 147.32.233.18 (147.32.233.18) port 8888 (#0)
+> POST /NI-AM1-ApplicationProtocols/protocol/useragent HTTP/1.1
+> Host: 147.32.233.18:8888
+> Accept: text/html
+> Accept-Language: en-US
+> User-Agent: resumed
+> Content-Length: 0
+> Content-Type: application/x-www-form-urlencoded
+> 
+< HTTP/1.1 200 OK
+< Server: Apache-Coyote/1.1
+< Content-Type: text/plain;charset=UTF-8
+< Content-Length: 83
+< Date: Fri, 24 Sep 2021 15:44:45 GMT
+< 
+OK
+Your next page is /protocol/cookie 
+send cookie called "name" with value "pets"
+* Connection #0 to host 147.32.233.18 left intact
+* Closing connection 0
+
+ondrej@Ondrejs-MacBook-Pro ~ % curl --data "" --header "Accept: text/html" --header "Accept-Language: en-US" --cookie "name=pets" -v "http://147.32.233.18:8888/NI-AM1-ApplicationProtocols/protocol/cookie" 
+*   Trying 147.32.233.18...
+* TCP_NODELAY set
+* Connected to 147.32.233.18 (147.32.233.18) port 8888 (#0)
+> POST /NI-AM1-ApplicationProtocols/protocol/cookie HTTP/1.1
+> Host: 147.32.233.18:8888
+> User-Agent: curl/7.64.1
+> Cookie: name=pets
+> Accept: text/html
+> Accept-Language: en-US
+> Content-Length: 0
+> Content-Type: application/x-www-form-urlencoded
+> 
+< HTTP/1.1 200 OK
+< Server: Apache-Coyote/1.1
+< Content-Type: text/plain;charset=UTF-8
+< Content-Length: 105
+< Date: Fri, 24 Sep 2021 15:46:47 GMT
+< 
+OK
+Your next page is /protocol/auth 
+authenticate by "mouse:ancient"
+set Header "Accept" is "text/html" 
+* Connection #0 to host 147.32.233.18 left intact
+* Closing connection 0
+
+ondrej@Ondrejs-MacBook-Pro ~ % curl --data "" --header "Accept: text/html" --header "Accept-Language: en-US" --user mouse:ancient -v "http://147.32.233.18:8888/NI-AM1-ApplicationProtocols/protocol/auth" 
+*   Trying 147.32.233.18...
+* TCP_NODELAY set
+* Connected to 147.32.233.18 (147.32.233.18) port 8888 (#0)
+* Server auth using Basic with user 'mouse'
+> POST /NI-AM1-ApplicationProtocols/protocol/auth HTTP/1.1
+> Host: 147.32.233.18:8888
+> Authorization: Basic bW91c2U6YW5jaWVudA==
+> User-Agent: curl/7.64.1
+> Accept: text/html
+> Accept-Language: en-US
+> Content-Length: 0
+> Content-Type: application/x-www-form-urlencoded
+> 
+< HTTP/1.1 200 OK
+< Server: Apache-Coyote/1.1
+< Content-Type: text/html;charset=UTF-8
+< Content-Length: 33
+< Date: Fri, 24 Sep 2021 15:49:14 GMT
+< 
+OK
+Your final result is: journal
+* Connection #0 to host 147.32.233.18 left intact
+* Closing connection 0
+
+ondrej@Ondrejs-MacBook-Pro ~ % 
