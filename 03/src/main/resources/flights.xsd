@@ -1,0 +1,105 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="uloha3"
+           targetNamespace="uloha3" elementFormDefault="qualified">
+
+    <xs:element name="getFlightBookingsRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getFlightBookingsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="flightBooking" type="tns:flightBooking"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addFlightBookingRequest">
+        <xs:complexType>
+            <xs:sequence>
+              <xs:element name="flightBooking" type="tns:flightBooking"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addFlightBookingResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="tns:result"/>
+                <xs:element name="flightBooking" type="tns:flightBooking"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteFlightBookingRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="bookingId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteFlightBookingResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="bookingId" type="xs:int"/>
+                <xs:element name="result" type="tns:result"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateFlightBookingRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="flightBooking" type="tns:flightBooking"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateFlightBookingResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="bookingId" type="xs:string"/>
+                <xs:element name="flightBooking" type="tns:flightBooking"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="flightBooking">
+        <xs:sequence>
+            <xs:element name="bookingId" type="xs:int"/>
+            <xs:element name="passenger" type="tns:passenger"/>
+            <xs:element name="originAirport" type="tns:airportIdentifier"/>
+            <xs:element name="departureDateTime" type="xs:dateTime"/>
+            <xs:element name="arrivalDateTime" type="xs:dateTime"/>
+            <xs:element name="destinationAirport" type="tns:airportIdentifier"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="passenger">
+        <xs:sequence>
+            <xs:element name="firstname" type="xs:string"/>
+            <xs:element name="lastname" type="xs:string"/>
+            <xs:element name="passport" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="airportIdentifier">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PRG"/>
+            <xs:enumeration value="BTS"/>
+            <xs:enumeration value="KSC"/>
+            <xs:enumeration value="DUB"/>
+            <xs:enumeration value="KBP"/>
+            <xs:enumeration value="SYD"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="result">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SUCCESS"/>
+            <xs:enumeration value="FAIL"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
