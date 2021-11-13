@@ -5,6 +5,7 @@
 
 Tieto operácie a príslušné objekty boli najprv navrhnuté pomocou XML štruktúry v súbore [flights.xsd](src/main/resources/flights.xsd).
 Pomocou jaxb2 boli tieto operácie a objekty vygenerované ako Java kód.
+
 ---
 ### Objekty
 
