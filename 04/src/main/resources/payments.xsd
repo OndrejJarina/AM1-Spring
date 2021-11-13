@@ -1,0 +1,51 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="uloha4"
+           targetNamespace="uloha4" elementFormDefault="qualified">
+
+    <xs:element name="getAllPaymentsRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllPaymentsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="payment" type="tns:payment"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addNewPaymentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="cardNumber" type="xs:string"/>
+                <xs:element name="cardOwner" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addNewPaymentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="tns:result"/>
+                <xs:element minOccurs="0" name="payment" type="tns:payment"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="payment">
+        <xs:sequence>
+            <xs:element name="cardNumber" type="xs:string"/>
+            <xs:element name="cardOwner" type="xs:string"/>
+            <xs:element name="orderIdentifier" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="result">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SUCCESS"/>
+            <xs:enumeration value="FAIL"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
