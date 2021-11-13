@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="0f8a7681-2d90-42e0-aeec-679483250c2f" activeEnvironment="Default" name="Uloha3" resourceRoot="${projectDir}" soapui-version="5.6.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="d7454e90-246a-4427-a9f3-f92c476e5713" wsaVersion="NONE" name="FlightBookingsPortSoap11" type="wsdl" bindingName="{uloha3}FlightBookingsPortSoap11" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/ws/flightBookings.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/ws/flightBookings.wsdl"><con:part><con:url>http://localhost:8080/ws/flightBookings.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="uloha3" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="uloha3" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="uloha3">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="uloha3" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="getFlightBookingsRequest">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getFlightBookingsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="flightBooking" type="tns:flightBooking"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addFlightBookingRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="flightBooking" type="tns:flightBooking"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addFlightBookingResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="result" type="tns:result"/>
+            <xs:element minOccurs="0" name="flightBooking" type="tns:flightBooking"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteFlightBookingRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="bookingId" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteFlightBookingResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="bookingId" type="xs:int"/>
+            <xs:element name="result" type="tns:result"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateFlightBookingRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="flightBooking" type="tns:flightBooking"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateFlightBookingResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="bookingId" type="xs:string"/>
+            <xs:element minOccurs="0" name="flightBooking" type="tns:flightBooking"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="flightBooking">
+        <xs:sequence>
+          <xs:element name="bookingId" type="xs:int"/>
+          <xs:element name="passenger" type="tns:passenger"/>
+          <xs:element name="originAirport" type="tns:airportIdentifier"/>
+          <xs:element name="departureDateTime" type="tns:dateAndTime"/>
+          <xs:element name="arrivalDateTime" type="tns:dateAndTime"/>
+          <xs:element name="destinationAirport" type="tns:airportIdentifier"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="passenger">
+        <xs:sequence>
+          <xs:element name="firstname" type="xs:string"/>
+          <xs:element name="lastname" type="xs:string"/>
+          <xs:element name="passport" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="dateAndTime">
+        <xs:sequence>
+          <xs:element name="day"/>
+          <xs:element name="month"/>
+          <xs:element name="year"/>
+          <xs:element name="hour"/>
+          <xs:element name="minute"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="airportIdentifier">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="PRG"/>
+          <xs:enumeration value="BTS"/>
+          <xs:enumeration value="KSC"/>
+          <xs:enumeration value="DUB"/>
+          <xs:enumeration value="KBP"/>
+          <xs:enumeration value="SYD"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="result">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="SUCCESS"/>
+          <xs:enumeration value="FAIL"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getFlightBookingsRequest">
+    <wsdl:part element="tns:getFlightBookingsRequest" name="getFlightBookingsRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteFlightBookingRequest">
+    <wsdl:part element="tns:deleteFlightBookingRequest" name="deleteFlightBookingRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addFlightBookingRequest">
+    <wsdl:part element="tns:addFlightBookingRequest" name="addFlightBookingRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateFlightBookingResponse">
+    <wsdl:part element="tns:updateFlightBookingResponse" name="updateFlightBookingResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addFlightBookingResponse">
+    <wsdl:part element="tns:addFlightBookingResponse" name="addFlightBookingResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getFlightBookingsResponse">
+    <wsdl:part element="tns:getFlightBookingsResponse" name="getFlightBookingsResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteFlightBookingResponse">
+    <wsdl:part element="tns:deleteFlightBookingResponse" name="deleteFlightBookingResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateFlightBookingRequest">
+    <wsdl:part element="tns:updateFlightBookingRequest" name="updateFlightBookingRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="FlightBookingsPort">
+    <wsdl:operation name="getFlightBookings">
+      <wsdl:input message="tns:getFlightBookingsRequest" name="getFlightBookingsRequest"></wsdl:input>
+      <wsdl:output message="tns:getFlightBookingsResponse" name="getFlightBookingsResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteFlightBooking">
+      <wsdl:input message="tns:deleteFlightBookingRequest" name="deleteFlightBookingRequest"></wsdl:input>
+      <wsdl:output message="tns:deleteFlightBookingResponse" name="deleteFlightBookingResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addFlightBooking">
+      <wsdl:input message="tns:addFlightBookingRequest" name="addFlightBookingRequest"></wsdl:input>
+      <wsdl:output message="tns:addFlightBookingResponse" name="addFlightBookingResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateFlightBooking">
+      <wsdl:input message="tns:updateFlightBookingRequest" name="updateFlightBookingRequest"></wsdl:input>
+      <wsdl:output message="tns:updateFlightBookingResponse" name="updateFlightBookingResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FlightBookingsPortSoap11" type="tns:FlightBookingsPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getFlightBookings">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getFlightBookingsRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getFlightBookingsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteFlightBooking">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="deleteFlightBookingRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteFlightBookingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addFlightBooking">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="addFlightBookingRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addFlightBookingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateFlightBooking">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateFlightBookingRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateFlightBookingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FlightBookingsPortService">
+    <wsdl:port binding="tns:FlightBookingsPortSoap11" name="FlightBookingsPortSoap11">
+      <soap:address location="http://localhost:8080/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/ws</con:endpoint></con:endpoints><con:operation id="ac0d7171-e4ff-4fa5-b5b5-b0b935a11873" isOneWay="false" action="" name="addFlightBooking" bindingOperationName="addFlightBooking" type="Request-Response" outputName="addFlightBookingResponse" inputName="addFlightBookingRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="adb3702d-5996-47ec-aba8-7208109631f7" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:uloh="uloha3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <uloh:addFlightBookingRequest>
+         <uloh:flightBooking>
+            <uloh:passenger>
+               <uloh:firstname>Jan</uloh:firstname>
+               <uloh:lastname>Prvy</uloh:lastname>
+               <uloh:passport>PP22SS</uloh:passport>
+            </uloh:passenger>
+            <uloh:originAirport>PRG</uloh:originAirport>
+            <uloh:departureDateTime>
+               <uloh:day>1</uloh:day>
+               <uloh:month>2</uloh:month>
+               <uloh:year>2021</uloh:year>
+               <uloh:hour>9</uloh:hour>
+               <uloh:minute>20</uloh:minute>
+            </uloh:departureDateTime>
+            <uloh:arrivalDateTime>
+               <uloh:day>1</uloh:day>
+               <uloh:month>2</uloh:month>
+               <uloh:year>2021</uloh:year>
+               <uloh:hour>10</uloh:hour>
+               <uloh:minute>50</uloh:minute>
+            </uloh:arrivalDateTime>
+            <uloh:destinationAirport>SYD</uloh:destinationAirport>
+         </uloh:flightBooking>
+      </uloh:addFlightBookingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="uloha3/FlightBookingsPort/addFlightBookingRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="778840b1-2be5-4847-ac0f-393ee399024c" isOneWay="false" action="" name="deleteFlightBooking" bindingOperationName="deleteFlightBooking" type="Request-Response" outputName="deleteFlightBookingResponse" inputName="deleteFlightBookingRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="edcfbbfb-b81a-458b-957e-8c44547fc3bb" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:uloh="uloha3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <uloh:deleteFlightBookingRequest>
+         <uloh:bookingId>?</uloh:bookingId>
+      </uloh:deleteFlightBookingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="uloha3/FlightBookingsPort/deleteFlightBookingRequest"/></con:call></con:operation><con:operation id="bd343e33-4c24-4760-8e4b-8366e5a0a289" isOneWay="false" action="" name="getFlightBookings" bindingOperationName="getFlightBookings" type="Request-Response" outputName="getFlightBookingsResponse" inputName="getFlightBookingsRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="44814f4c-b1d3-41c8-977c-3cfd32dba2f4" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:uloh="uloha3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <uloh:getFlightBookingsRequest/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="uloha3/FlightBookingsPort/getFlightBookingsRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="f800b705-92ee-4989-9520-7570bd57efb6" isOneWay="false" action="" name="updateFlightBooking" bindingOperationName="updateFlightBooking" type="Request-Response" outputName="updateFlightBookingResponse" inputName="updateFlightBookingRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="046a1b91-0fd6-48d7-98fc-73c788acb04c" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:uloh="uloha3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <uloh:updateFlightBookingRequest>
+         <uloh:flightBooking>
+            <uloh:bookingId>?</uloh:bookingId>
+            <uloh:passenger>
+               <uloh:firstname>?</uloh:firstname>
+               <uloh:lastname>?</uloh:lastname>
+               <uloh:passport>?</uloh:passport>
+            </uloh:passenger>
+            <uloh:originAirport>?</uloh:originAirport>
+            <uloh:departureDateTime>
+               <uloh:day>?</uloh:day>
+               <uloh:month>?</uloh:month>
+               <uloh:year>?</uloh:year>
+               <uloh:hour>?</uloh:hour>
+               <uloh:minute>?</uloh:minute>
+            </uloh:departureDateTime>
+            <uloh:arrivalDateTime>
+               <uloh:day>?</uloh:day>
+               <uloh:month>?</uloh:month>
+               <uloh:year>?</uloh:year>
+               <uloh:hour>?</uloh:hour>
+               <uloh:minute>?</uloh:minute>
+            </uloh:arrivalDateTime>
+            <uloh:destinationAirport>?</uloh:destinationAirport>
+         </uloh:flightBooking>
+      </uloh:updateFlightBookingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="uloha3/FlightBookingsPort/updateFlightBookingRequest"/></con:call></con:operation></con:interface><con:testSuite id="cf4b1572-de45-40a6-8546-cfc36e558485" name="Uloha 3 Testy"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="41d54a42-5a4c-4c41-a33a-0f109c21dbe1" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Add" searchProperties="true"><con:settings/><con:testStep type="request" name="Add 1" id="d5fd2f17-3cce-4cd3-b8cf-f83189b574df"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FlightBookingsPortSoap11</con:interface><con:operation>addFlightBooking</con:operation><con:request name="Add 1" id="c0b7daf4-a099-4be6-a007-d79757133f2e"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:uloh="uloha3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <uloh:addFlightBookingRequest>
+         <uloh:flightBooking>
+            <uloh:passenger>
+               <uloh:firstname>Tester</uloh:firstname>
+               <uloh:lastname>Testovaci</uloh:lastname>
+               <uloh:passport>WW9922</uloh:passport>
+            </uloh:passenger>
+            <uloh:originAirport>PRG</uloh:originAirport>
+            <uloh:departureDateTime>
+               <uloh:day>1</uloh:day>
+               <uloh:month>12</uloh:month>
+               <uloh:year>2021</uloh:year>
+               <uloh:hour>12</uloh:hour>
+               <uloh:minute>13</uloh:minute>
+            </uloh:departureDateTime>
+            <uloh:arrivalDateTime>
+               <uloh:day>1</uloh:day>
+               <uloh:month>12</uloh:month>
+               <uloh:year>2021</uloh:year>
+               <uloh:hour>17</uloh:hour>
+               <uloh:minute>15</uloh:minute>
+            </uloh:arrivalDateTime>
+            <uloh:destinationAirport>KSC</uloh:destinationAirport>
+         </uloh:flightBooking>
+      </uloh:addFlightBookingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="f4a65764-e3cf-4bba-99d6-203abef702d0"/><con:assertion type="Simple Contains" id="e2e4b89f-af8b-4d18-998c-0472d1846dae" name="Contains"><con:configuration><token>SUCCESS</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="XPath Match" id="e66ad0be-840b-4c55-a60c-7e64b3e0a31c" name="XPath Match"><con:configuration/></con:assertion><con:assertion type="Simple Contains" id="3485419f-84a3-44a4-973e-280150e6655f" name="Contains 1"><con:configuration><token/><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="Property Transfer 1" id="89af2eb0-db9d-456b-98fd-f5006b62c442"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>bookingID</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>Add 1</con:sourceStep><con:sourcePath>declare namespace xmlns="uloha3" 
+//xmlns:bookingId</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>Delete</con:targetStep><con:targetPath>declare namespace xmlns="uloha3" 
+//xmlns:bookingId</con:targetPath><con:type>XPATH</con:type><con:upgraded>true</con:upgraded></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>bookingId EDIT</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>Add 1</con:sourceStep><con:sourcePath>declare namespace xmlns="uloha3" 
+//xmlns:bookingId</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>Update</con:targetStep><con:targetPath>declare namespace xmlns="uloha3" 
+//xmlns:bookingId</con:targetPath><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="request" name="List all check added" id="db06fcb5-089a-4b6c-a570-f0e2f6b1b0be"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FlightBookingsPortSoap11</con:interface><con:operation>getFlightBookings</con:operation><con:request name="List all check added" id="6b88bdea-034f-4a20-a5c7-a8b295a0f093"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:uloh="uloha3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <uloh:getFlightBookingsRequest/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="0f03d0b2-36a7-41cb-99f9-f2a4bcf2d179"/><con:assertion type="Simple Contains" id="5279804f-69ba-47fd-bcc6-f2684b43a230" name="Contains"><con:configuration><token>Tester</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="a66b36db-7474-4389-93be-81782521e109" name="name"><con:configuration><token>Testovaci</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="c8511643-9704-4395-ba0d-bcfd13b3c43d" name="Origin"><con:configuration><token>PRG</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="53439e12-7c4e-4cfb-b7a5-3be454b8c7f9" name="Destination"><con:configuration><token>KSC</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Update" id="8c2164bf-4f05-4c3b-9749-c2a0cbd5678b"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FlightBookingsPortSoap11</con:interface><con:operation>updateFlightBooking</con:operation><con:request name="Update" id="dd9f0077-3cc1-43b2-a8e2-bb8965e6c78b"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:uloh="uloha3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <uloh:updateFlightBookingRequest>
+         <uloh:flightBooking>
+            <uloh:bookingId>28015</uloh:bookingId>
+            <uloh:passenger>
+               <uloh:firstname>Updated</uloh:firstname>
+               <uloh:lastname>Updating</uloh:lastname>
+               <uloh:passport>KW239MM</uloh:passport>
+            </uloh:passenger>
+            <uloh:originAirport>KBP</uloh:originAirport>
+            <uloh:departureDateTime>
+               <uloh:day>1</uloh:day>
+               <uloh:month>1</uloh:month>
+               <uloh:year>2022</uloh:year>
+               <uloh:hour>13</uloh:hour>
+               <uloh:minute>20</uloh:minute>
+            </uloh:departureDateTime>
+            <uloh:arrivalDateTime>
+               <uloh:day>1</uloh:day>
+               <uloh:month>1</uloh:month>
+               <uloh:year>2020</uloh:year>
+               <uloh:hour>13</uloh:hour>
+               <uloh:minute>50</uloh:minute>
+            </uloh:arrivalDateTime>
+            <uloh:destinationAirport>KBP</uloh:destinationAirport>
+         </uloh:flightBooking>
+      </uloh:updateFlightBookingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="7207469f-be27-4f5d-93d8-b6d2701e9ff5"/><con:assertion type="Simple Contains" id="260085fa-7ea6-4048-9b60-c8f7d0d762b5" name="Contains"><con:configuration><token>Success</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="List all check updated" id="9dfa0e1c-7713-4ae9-8501-186dfa692705"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FlightBookingsPortSoap11</con:interface><con:operation>getFlightBookings</con:operation><con:request name="List all check updated" id="1ecd6d71-ae51-47a5-9083-a56e95cd9958"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:uloh="uloha3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <uloh:getFlightBookingsRequest/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="18b0cb9a-e8c9-404a-bc24-a6306a2a517e"/><con:assertion type="Simple Contains" id="ef85ddaf-713c-422a-8f32-0f749f9ef966" name="Contains"><con:configuration><token>Updating</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="e25a65b6-edbf-4627-b079-761becb220bb" name="Contains Updated"><con:configuration><token>Updated</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple NotContains" id="363a9dc6-648a-4c5e-b243-fc989c163ee1" name="Not Contains"><con:configuration><token>Testovaci</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Delete" id="e7634366-c4c8-4520-8201-9fcca542060d"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FlightBookingsPortSoap11</con:interface><con:operation>deleteFlightBooking</con:operation><con:request name="Delete" id="82ddbaa1-f1f8-4a10-902c-b3a947942eab"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:uloh="uloha3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <uloh:deleteFlightBookingRequest>
+         <uloh:bookingId>28015</uloh:bookingId>
+      </uloh:deleteFlightBookingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="b52873a9-d158-40a2-82bf-91b354a3d752"/><con:assertion type="Simple Contains" id="86929c83-e2e1-4134-9364-14fb3f07c137" name="Contains"><con:configuration><token>SUCCESS</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="List all check deleted" id="da6b1a0e-b4fd-4263-a7c7-cdd812711a34"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FlightBookingsPortSoap11</con:interface><con:operation>getFlightBookings</con:operation><con:request name="List all check deleted" id="810719f6-5b74-4d9f-b34e-fd4c1d2b8b20"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:uloh="uloha3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <uloh:getFlightBookingsRequest/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="1744c3a4-690e-4cac-a646-930338b37e5d"/><con:assertion type="Simple NotContains" id="d13ae172-1a6b-49cd-95d7-3301f673590b" name="Not Contains"><con:configuration><token>Updated</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple NotContains" id="d4248907-cf16-46bd-b095-dce5df017f89" name="Not Contains Updating"><con:configuration><token>Updating</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
