@@ -1,0 +1,228 @@
+Last login: Mon Nov 29 13:30:21 on ttys000
+ondrej@ntb-o ~ % curl http://localhost:8080/tours -v
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8080 (#0)
+> GET /tours HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.64.1
+> Accept: */*
+> 
+< HTTP/1.1 200 
+< Last-Modified: Mon, 29 Nov 2021 13:02:41 GMT
+< ETag: "W/F91448960449F57298DE6784793B6E90"
+< Content-Type: application/hal+json
+< Transfer-Encoding: chunked
+< Date: Mon, 29 Nov 2021 13:02:51 GMT
+< 
+* Connection #0 to host localhost left intact
+{"_embedded":{"tourList":[{"id":1,"name":"Tour1","customers":[{"name":"Ondrej","surname":"Jarina"}],"_links":{"ADD":{"href":"http://localhost:8080/tours/1/add-customer"}}}]},"_links":{"LIST":[{"href":"http://localhost:8080/tours/strong"},{"href":"http://localhost:8080/tours/last-modified"}],"ADD":{"href":"http://localhost:8080/tours/add-tour"}}}* Closing connection 0
+ondrej@ntb-o ~ % curl http://localhost:8080/tours -H "If-None-Match: W/F91448960449F57298DE6784793B6E90" -v
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8080 (#0)
+> GET /tours HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.64.1
+> Accept: */*
+> If-None-Match: W/F91448960449F57298DE6784793B6E90
+> 
+< HTTP/1.1 304 
+< ETag: "W/F91448960449F57298DE6784793B6E90"
+< Last-Modified: Mon, 29 Nov 2021 13:02:41 GMT
+< Date: Mon, 29 Nov 2021 13:03:03 GMT
+< 
+* Connection #0 to host localhost left intact
+* Closing connection 0
+ondrej@ntb-o ~ % curl http://localhost:8080/tours/strong -H "If-None-Match: W/F91448960449F57298DE6784793B6E90" -v
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8080 (#0)
+> GET /tours/strong HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.64.1
+> Accept: */*
+> If-None-Match: W/F91448960449F57298DE6784793B6E90
+> 
+< HTTP/1.1 200 
+< Last-Modified: Mon, 29 Nov 2021 13:02:41 GMT
+< ETag: "D28A7024117839E963CC9AF9DAA1DDFF"
+< Content-Type: application/hal+json
+< Transfer-Encoding: chunked
+< Date: Mon, 29 Nov 2021 13:03:18 GMT
+< 
+* Connection #0 to host localhost left intact
+{"_embedded":{"tourList":[{"id":1,"name":"Tour1","customers":[{"name":"Ondrej","surname":"Jarina"}],"_links":{"ADD":{"href":"http://localhost:8080/tours/1/add-customer"}}}]},"_links":{"LIST":[{"href":"http://localhost:8080/tours"},{"href":"http://localhost:8080/tours/last-modified"}],"ADD":{"href":"http://localhost:8080/tours/add-tour"}}}* Closing connection 0
+ondrej@ntb-o ~ % curl http://localhost:8080/tours/last-modified -H "If-Modified-Since: Mon, 29 Nov 2021 13:02:41 GMT" -v
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8080 (#0)
+> GET /tours/last-modified HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.64.1
+> Accept: */*
+> If-Modified-Since: Mon, 29 Nov 2021 13:02:41 GMT
+> 
+< HTTP/1.1 304 
+< Last-Modified: Mon, 29 Nov 2021 13:02:41 GMT
+< Date: Mon, 29 Nov 2021 13:04:20 GMT
+< 
+* Connection #0 to host localhost left intact
+* Closing connection 0
+ondrej@ntb-o ~ % curl -X POST http://localhost:8080/tours/add-tour -H "Content-Type: application/json" -d '{
+    "id": 12,
+    "name": "Polsko"
+}' -v
+Note: Unnecessary use of -X or --request, POST is already inferred.
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8080 (#0)
+> POST /tours/add-tour HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.64.1
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 38
+> 
+* upload completely sent off: 38 out of 38 bytes
+< HTTP/1.1 200 
+< Content-Type: application/hal+json
+< Transfer-Encoding: chunked
+< Date: Mon, 29 Nov 2021 13:04:33 GMT
+< 
+* Connection #0 to host localhost left intact
+{"id":12,"name":"Polsko","customers":[],"_links":{"LIST":[{"href":"http://localhost:8080/tours"},{"href":"http://localhost:8080/tours/strong"},{"href":"http://localhost:8080/tours/last-modified"}],"ADD":{"href":"http://localhost:8080/tours/12/add-customer"}}}* Closing connection 0
+ondrej@ntb-o ~ % curl http://localhost:8080/tours -H "If-None-Match: W/F91448960449F57298DE6784793B6E90" -v 
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8080 (#0)
+> GET /tours HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.64.1
+> Accept: */*
+> If-None-Match: W/F91448960449F57298DE6784793B6E90
+> 
+< HTTP/1.1 200 
+< Last-Modified: Mon, 29 Nov 2021 13:04:33 GMT
+< ETag: "W/75AA0EB9B65194548904078F2D9D3DE7"
+< Content-Type: application/hal+json
+< Transfer-Encoding: chunked
+< Date: Mon, 29 Nov 2021 13:04:51 GMT
+< 
+* Connection #0 to host localhost left intact
+{"_embedded":{"tourList":[{"id":1,"name":"Tour1","customers":[{"name":"Ondrej","surname":"Jarina"}],"_links":{"ADD":{"href":"http://localhost:8080/tours/1/add-customer"}}},{"id":12,"name":"Polsko","customers":[],"_links":{"ADD":{"href":"http://localhost:8080/tours/12/add-customer"}}}]},"_links":{"LIST":[{"href":"http://localhost:8080/tours/strong"},{"href":"http://localhost:8080/tours/last-modified"}],"ADD":{"href":"http://localhost:8080/tours/add-tour"}}}* Closing connection 0
+ondrej@ntb-o ~ % curl http://localhost:8080/tours/strong -H "If-None-Match: D28A7024117839E963CC9AF9DAA1DDFF" -v
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8080 (#0)
+> GET /tours/strong HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.64.1
+> Accept: */*
+> If-None-Match: D28A7024117839E963CC9AF9DAA1DDFF
+> 
+< HTTP/1.1 200 
+< Last-Modified: Mon, 29 Nov 2021 13:04:33 GMT
+< ETag: "C446CDF277049AB65EEC98FF63626D26"
+< Content-Type: application/hal+json
+< Transfer-Encoding: chunked
+< Date: Mon, 29 Nov 2021 13:05:35 GMT
+< 
+* Connection #0 to host localhost left intact
+{"_embedded":{"tourList":[{"id":1,"name":"Tour1","customers":[{"name":"Ondrej","surname":"Jarina"}],"_links":{"ADD":{"href":"http://localhost:8080/tours/1/add-customer"}}},{"id":12,"name":"Polsko","customers":[],"_links":{"ADD":{"href":"http://localhost:8080/tours/12/add-customer"}}}]},"_links":{"LIST":[{"href":"http://localhost:8080/tours"},{"href":"http://localhost:8080/tours/last-modified"}],"ADD":{"href":"http://localhost:8080/tours/add-tour"}}}* Closing connection 0
+ondrej@ntb-o ~ % curl http://localhost:8080/tours/last-modified -H "If-Modified-Since: Mon, 29 Nov 2021 13:02:41 GMT" -v
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8080 (#0)
+> GET /tours/last-modified HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.64.1
+> Accept: */*
+> If-Modified-Since: Mon, 29 Nov 2021 13:02:41 GMT
+> 
+< HTTP/1.1 200 
+< Last-Modified: Mon, 29 Nov 2021 13:04:33 GMT
+< Content-Type: application/hal+json
+< Transfer-Encoding: chunked
+< Date: Mon, 29 Nov 2021 13:05:40 GMT
+< 
+* Connection #0 to host localhost left intact
+{"_embedded":{"tourList":[{"id":1,"name":"Tour1","customers":[{"name":"Ondrej","surname":"Jarina"}],"_links":{"ADD":{"href":"http://localhost:8080/tours/1/add-customer"}}},{"id":12,"name":"Polsko","customers":[],"_links":{"ADD":{"href":"http://localhost:8080/tours/12/add-customer"}}}]},"_links":{"LIST":[{"href":"http://localhost:8080/tours/strong"},{"href":"http://localhost:8080/tours"}],"ADD":{"href":"http://localhost:8080/tours/add-tour"}}}* Closing connection 0
+ondrej@ntb-o ~ % curl -X POST http://localhost:8080/tours/12/add-customer -H "Content-Type: application/json" -d '{
+    "name": "Prvy", 
+    "surname": "Testovatel"
+}' -v
+Note: Unnecessary use of -X or --request, POST is already inferred.
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8080 (#0)
+> POST /tours/12/add-customer HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.64.1
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 51
+> 
+* upload completely sent off: 51 out of 51 bytes
+< HTTP/1.1 200 
+< Content-Type: application/hal+json
+< Transfer-Encoding: chunked
+< Date: Mon, 29 Nov 2021 13:12:18 GMT
+< 
+* Connection #0 to host localhost left intact
+{"id":12,"name":"Polsko","customers":[{"name":"Prvy","surname":"Testovatel"}],"_links":{"LIST":[{"href":"http://localhost:8080/tours"},{"href":"http://localhost:8080/tours/strong"},{"href":"http://localhost:8080/tours/last-modified"}],"ADD":{"href":"http://localhost:8080/tours/add-tour"}}}* Closing connection 0
+ondrej@ntb-o ~ % curl http://localhost:8080/tours -H "If-None-Match: W/75AA0EB9B65194548904078F2D9D3DE7" -v
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8080 (#0)
+> GET /tours HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.64.1
+> Accept: */*
+> If-None-Match: W/75AA0EB9B65194548904078F2D9D3DE7
+> 
+< HTTP/1.1 304 
+< ETag: "W/75AA0EB9B65194548904078F2D9D3DE7"
+< Last-Modified: Mon, 29 Nov 2021 13:12:18 GMT
+< Date: Mon, 29 Nov 2021 13:13:01 GMT
+< 
+* Connection #0 to host localhost left intact
+* Closing connection 0
+ondrej@ntb-o ~ % curl http://localhost:8080/tours/strong -H "If-None-Match: D28A7024117839E963CC9AF9DAA1DDFF" -v
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8080 (#0)
+> GET /tours/strong HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.64.1
+> Accept: */*
+> If-None-Match: D28A7024117839E963CC9AF9DAA1DDFF
+> 
+< HTTP/1.1 200 
+< Last-Modified: Mon, 29 Nov 2021 13:12:18 GMT
+< ETag: "0470CA9B777784D74CD474A989091EC9"
+< Content-Type: application/hal+json
+< Transfer-Encoding: chunked
+< Date: Mon, 29 Nov 2021 13:13:40 GMT
+< 
+* Connection #0 to host localhost left intact
+{"_embedded":{"tourList":[{"id":1,"name":"Tour1","customers":[{"name":"Ondrej","surname":"Jarina"}],"_links":{"ADD":{"href":"http://localhost:8080/tours/1/add-customer"}}},{"id":12,"name":"Polsko","customers":[{"name":"Prvy","surname":"Testovatel"}],"_links":{"ADD":{"href":"http://localhost:8080/tours/12/add-customer"}}}]},"_links":{"LIST":[{"href":"http://localhost:8080/tours"},{"href":"http://localhost:8080/tours/last-modified"}],"ADD":{"href":"http://localhost:8080/tours/add-tour"}}}* Closing connection 0
+ondrej@ntb-o ~ % curl http://localhost:8080/tours/last-modified -H "If-Modified-Since: Mon, 29 Nov 2021 13:10:41 GMT" -v
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8080 (#0)
+> GET /tours/last-modified HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.64.1
+> Accept: */*
+> If-Modified-Since: Mon, 29 Nov 2021 13:10:41 GMT
+> 
+< HTTP/1.1 200 
+< Last-Modified: Mon, 29 Nov 2021 13:12:18 GMT
+< Content-Type: application/hal+json
+< Transfer-Encoding: chunked
+< Date: Mon, 29 Nov 2021 13:14:19 GMT
+< 
+* Connection #0 to host localhost left intact
+{"_embedded":{"tourList":[{"id":1,"name":"Tour1","customers":[{"name":"Ondrej","surname":"Jarina"}],"_links":{"ADD":{"href":"http://localhost:8080/tours/1/add-customer"}}},{"id":12,"name":"Polsko","customers":[{"name":"Prvy","surname":"Testovatel"}],"_links":{"ADD":{"href":"http://localhost:8080/tours/12/add-customer"}}}]},"_links":{"LIST":[{"href":"http://localhost:8080/tours/strong"},{"href":"http://localhost:8080/tours"}],"ADD":{"href":"http://localhost:8080/tours/add-tour"}}}* Closing connection 0
+ondrej@ntb-o ~ % 
