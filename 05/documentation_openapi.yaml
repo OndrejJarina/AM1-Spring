@@ -1,0 +1,717 @@
+openapi: 3.0.1
+info:
+  title: Uloha 5
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: jarinond@fit.cvut.cz
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+tags:
+- name: Country
+paths:
+  /country:
+    post:
+      tags: 
+        - Country
+      summary: Add a new country
+      operationId: addCountry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required: [name]
+              properties:
+                name: 
+                  type: string
+        required: true
+      responses:
+        400:
+          description: Bad request
+        200:
+          description: Country created
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                  countryId:
+                    type: string
+          links:
+            GetCountryById:
+              operationId: getExistingCountry
+              parameters:
+                countryId: $response.body#/countryId
+    get:
+      tags:
+        - Country
+      summary: List all countries
+      operationId: allCountries
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  countries:
+                    type: array
+                    items:
+                      properties:
+                        name:
+                          type: string
+                        countryId:
+                          type: string
+          links:
+            getLocations:
+              operationId: allLocations
+              parameters:
+                countryId: $response.body#/countryId
+  /country/{countryId}:
+    parameters:
+      - name: countryId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags: 
+        - Country
+      summary: Get existing country
+      operationId: getExistingCountry
+      responses:
+        400:
+          description: Bad request
+        404:
+          description: countryId not found
+        200:
+          description: Country found
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                  countryId:
+                    type: string
+          links:
+            UpdateCountry:
+              operationId: updateCountry
+              parameters:
+                countryId: $response.body#/countryId
+            DeleteCountry:
+              operationId: deleteCountry
+              parameters:
+                countryId: $response.body#/countryId
+            GetLocations:
+              operationId: allLocations
+              parameters:
+                countryId: $response.body#/countryId
+    put:
+      tags: 
+        - Country
+      summary: Update existing country
+      operationId: updateCountry
+      responses:
+        400:
+          description: Bad request
+        200:
+          description: Country updated
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                  countryId:
+                    type: string
+          links:
+            GetCountry:
+              operationId: getExistingCountry
+              parameters:
+                countryId: $response.body#/countryId
+            DeleteCountry:
+              operationId: deleteCountry
+              parameters:
+                countryId: $response.body#/countryId
+            GetLocations:
+              operationId: allLocations
+              parameters:
+                countryId: $response.body#/countryId
+    delete:
+      tags: 
+        - Country
+      summary: Delete existing country
+      operationId: deleteCountry
+      responses:
+        400:
+          description: Bad request
+        200:
+          description: Country deleted
+          content:
+            application/json:
+              schema:
+                properties:
+                  countryId:
+                    type: string
+  /location:
+    post:
+      parameters:
+        - name: countryId
+          in: query
+          required: true
+          schema:
+            type: string
+      tags: 
+        - Location
+      summary: Add a new location
+      operationId: addLocation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required: [name]
+              properties:
+                name: 
+                  type: string
+                latitude:
+                  type: number
+                longitude:
+                  type: number
+        required: true
+      responses:
+        400:
+          description: Bad request
+        200:
+          description: Country created
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                  locationId:
+                    type: string
+                  latitude:
+                    type: number
+                  longitude:
+                    type: number
+          links:
+            GetTours:
+              operationId: allTours
+              parameters:
+                locationId: $response.body#/locationId
+            GetLocation:
+                operationId: getExistingLocation
+                parameters:
+                  locationId: $response.body#/locationId
+
+    get:
+      parameters:
+        - name: countryId
+          in: query
+          required: false
+          schema:
+            type: string
+      tags:
+        - Location
+      summary: List all locations
+      operationId: allLocations
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  locations:
+                    type: array
+                    items:
+                      properties:
+                        name:
+                          type: string
+                        locationId:
+                          type: string
+                        latitude:
+                          type: number
+                        longitude:
+                          type: number
+          links:
+            GetTours:
+              operationId: allTours
+              parameters:
+                locationId: $response.body#/locationId
+  /location/{locationId}:
+    parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags: 
+        - Location
+      summary: Get existing location
+      operationId: getExistingLocation
+      responses:
+        400:
+          description: Bad request
+        404:
+          description: locationId not found
+        200:
+          description: Location found
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                  locationId:
+                    type: string 
+                  latitude:
+                    type: string
+                  longitude:
+                    type: string
+          links:
+            GetTours:
+              operationId: allTours
+              parameters:
+                locationId: $response.body#/locationId
+            UpdateLocation:
+              operationId: updateLocation
+              parameters:
+                locationId: $response.body#/locationId
+            DeleteLocation:
+              operationId: deleteLocation
+              parameters:
+                locationId: $response.body#/locationId
+    put:
+      tags: 
+        - Location
+      summary: Update existing location
+      operationId: updateLocation
+      responses:
+        400:
+          description: Bad request
+        200:
+          description: Location updated
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                  locationId:
+                    type: string
+                  latitude:
+                    type: string
+                  longitude:
+                    type: string
+          links:
+            GetTours:
+              operationId: allTours
+              parameters:
+                locationId: $response.body#/locationId
+            GetLocation:
+              operationId: getExistingLocation
+              parameters:
+                locationId: $response.body#/locationId
+            DeleteLocation:
+              operationId: deleteLocation
+              parameters:
+                locationId: $response.body#/locationId
+    delete:
+      tags: 
+        - Location
+      summary: Delete existing location
+      operationId: deleteLocation
+      responses:
+        400:
+          description: Bad request
+        200:
+          description: Location deleted
+          content:
+            application/json:
+              schema:
+                properties:
+                  locaitonId:
+                    type: string
+  /tour:
+    post:
+      parameters:
+        - name: tourId
+          in: query
+          required: true
+          schema:
+            type: string
+      tags: 
+        - Tour
+      summary: Add a new tour
+      operationId: addTour
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required: [tourGuideName]
+              properties:
+                tourGuideName: 
+                  type: string
+        required: true
+      responses:
+        400:
+          description: Bad request
+        200:
+          description: Location created
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                  tourId:
+                    type: string
+          links:
+            GetCustomers:
+              operationId: allCustomers
+              parameters:
+                tourId: $response.body#/tourId
+            GetTour:
+              operationId: getExistingTour
+              parameters:
+                tourId: $response.body#/tourId
+    get:
+      parameters:
+        - name: countryId
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: locationId
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: customerId
+          in: query
+          required: false
+          schema:
+            type: string
+      tags:
+        - Tour
+      summary: List all tours
+      operationId: allTours
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  tours:
+                    type: array
+                    items:
+                      type: object
+                      $ref: '#/components/schemas/Tour'
+          links:
+            GetCustomers:
+              operationId: allCustomers
+              parameters:
+                tourId: $response.body#/tourId
+  /tour/{tourId}:
+    parameters:
+      - name: tourId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Tour
+      summary: Get existing tour
+      operationId: getExistingTour
+      responses:
+        400:
+          description: Bad request
+        404:
+          description: countryId not found
+        200:
+          description: Country found
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                  tourId:
+                    type: string
+          links:
+            GetCustomers:
+              operationId: allCustomers
+              parameters:
+                tourId: $response.body#/tourId
+            UpdateTour:
+              operationId: updateTour
+              parameters:
+                tourId: $response.body#/tourId
+            DeleteTour:
+              operationId: deleteTour
+              parameters:
+                tourId: $response.body#/tourId
+    put:
+      tags:
+        - Tour
+      summary: Update existing tour
+      operationId: updateTour
+      responses:
+        400:
+          description: Bad request
+        200:
+          description: Tour updated
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                  tourId:
+                    type: string
+          links:
+            GetCustomers:
+              operationId: allCustomers
+              parameters:
+                tourId: $response.body#/tourId
+            GetTour:
+              operationId: existingTour
+              parameters:
+                tourId: $response.body#/tourId
+            DeleteTour:
+              operationId: deleteTour
+              parameters:
+                tourId: $response.body#/tourId
+    delete:
+      tags:
+        - Tour
+      summary: Delete existing tour
+      operationId: deleteTour
+      responses:
+        400:
+          description: Bad request
+        200:
+          description: Tour deleted
+          content:
+            application/json:
+              schema:
+                properties:
+                  tourId:
+                    type: string
+  /customer:
+    post:
+      parameters:
+        - name: tourId
+          in: query
+          required: true
+          schema:
+            type: string
+      tags:
+        - Customer
+      summary: Add a new Customer
+      operationId: addCustomer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required: [customerId, firstName, lastName]
+              properties:
+                customerId:
+                  type: string
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+        required: true
+      responses:
+        400:
+          description: Bad request
+        200:
+          description: Location created
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                  CustomerId:
+                    type: string
+          links:
+            GetCustomer:
+              operationId: getExistingCustomer
+              parameters:
+                customerId: $response.body#/customerId
+    get:
+      parameters:
+        - name: tourId
+          in: query
+          required: false
+          schema:
+            type: string
+      tags:
+        - Customer
+      summary: List all Customers
+      operationId: allCustomers
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  Customers:
+                    type: array
+                    items:
+                      type: object
+                      $ref: '#/components/schemas/Customer'
+  /customer/{customerId}:
+    parameters:
+      - name: customerId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Customer
+      summary: Get existing customer
+      operationId: getExistingCustomer
+      responses:
+        400:
+          description: Bad request
+        404:
+          description: customerId not found
+        200:
+          description: Country found
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                  customerId:
+                    type: string
+          links:
+            GetTours:
+              operationId: allTours
+              parameters:
+                customerId: customerId
+            UpdateCustomer:
+              operationId: updateCustomer
+              parameters:
+                customerId: customerId
+            DeleteCustomer:
+              operationId: deleteCustomer
+              parameters:
+                customerId: customerId
+    put:
+      tags:
+        - Customer
+      summary: Update existing customer
+      operationId: updateCustomer
+      responses:
+        400:
+          description: Bad request
+        200:
+          description: Customer updated
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                  customerId:
+                    type: string
+          links:
+            GetCustomer:
+              operationId: getExistingCustomer
+              parameters:
+                customerId: $response.body#/customerId
+            DeleteCustomer:
+              operationId: deleteCustomer
+              parameters:
+                customerId: $response.body#/customerId
+            GetTours:
+              operationId: getTours
+              parameters:
+                customerId: $response.body#/customerId
+    delete:
+      tags:
+        - Customer
+      summary: Delete existing customer
+      operationId: deleteCustomer
+      responses:
+        400:
+          description: Bad request
+        200:
+          description: Customer deleted
+          content:
+            application/json:
+              schema:
+                properties:
+                  CustomerId:
+                    type: string
+components:
+  schemas:
+    Customer:
+      type: object
+      required: [customerId, firstName, lastName]
+      properties:
+        customerId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        tours:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tour'
+    Tour:
+      type: object
+      required: [tourId, tourGuideName]
+      properties:
+        tourId:
+          type: string
+        tourGuideName:
+          type: string
+        customers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+    Location:
+      type: object
+      required: [locationId, name, latitude, longitude]
+      properties:
+        locationId:
+          type: string
+        name:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        tours:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tour'
+    Country:
+      type: object
+      required: [countryId, name]
+      properties:
+        countryId:
+          type: string
+        name: 
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
