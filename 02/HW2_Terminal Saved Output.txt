@@ -175,7 +175,6 @@ ondrej@Ondrejs-MacBook-Pro ~ % curl --data "" --header "Accept: text/html" --hea
 * Server auth using Basic with user 'mouse'
 > POST /NI-AM1-ApplicationProtocols/protocol/auth HTTP/1.1
 > Host: 147.32.233.18:8888
-> Authorization: Basic bW91c2U6YW5jaWVudA==
 > User-Agent: curl/7.64.1
 > Accept: text/html
 > Accept-Language: en-US
